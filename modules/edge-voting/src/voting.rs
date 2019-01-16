@@ -127,6 +127,13 @@ pub trait Trait: balances::Trait + delegation::Trait {
 	type Event: From<Event<Self>> + Into<<Self as system::Trait>::Event>;
 }
 
+#[derive(PartialEq, Eq, Clone)]
+#[cfg_attr(feature = "std", derive(Debug))]
+pub enum Origin {
+    // the id of a vote
+    Vote(u64),
+}
+
 decl_module! {
 	pub struct Module<T: Trait> for enum Call where origin: T::Origin {
 		fn deposit_event<T>() = default;
@@ -352,4 +359,25 @@ decl_storage! {
 		/// The number of vote records that have been created
 		pub VoteRecordCount get(vote_record_count): u64;
 	}
+}
+
+
+pub fn ensure_vote_outcome<OuterOrigin>(o: OuterOrigin, p: bool) -> result::Result<bool, &'static str>
+    where OuterOrigin: Into<Option<Origin>>
+{
+    match o.into() {
+        Some(Origin::Vote(vote_id)) => was_vote_outcome(vote_hash, p), // TODO: Mark vote complete
+        _ => Err("bad origin: expected to be a threshold number of council members"),
+    }
+
+}
+
+pub struct EnsureVote<P: bool>(::rstd::marker::PhantomData<P>);
+impl<O, P: bool> EnsureOrigin<O> for EnsureVote<P>
+    where O: Into<Option<Origin>>
+{
+    type Success = bool;
+    fn ensure_origin(o: O) -> result::Result<Self::Success, &'static str> {
+        ensure_vote_outcome(o, P::VALUE);
+    }
 }
