@@ -44,6 +44,7 @@ pub enum ProposalStage {
 	PreVoting,
 	Voting,
 	Completed,
+	Implemented,
 }
 
 #[cfg_attr(feature = "std", derive(Debug))]
@@ -67,6 +68,13 @@ pub struct ProposalRecord<AccountId, BlockNumber> {
 	// TODO: separate comments into different object, for storage reasons
 	pub comments: Vec<(Vec<u8>, AccountId)>,
 	// TODO: for actions, we might need more data
+}
+
+#[derive(PartialEq, Eq, Clone)]
+#[cfg_attr(feature = "std", derive(Debug))]
+pub enum Origin<Hash> {
+    // the hash of a vote
+    Proposal(Hash),
 }
 
 pub trait Trait: system::Trait {
@@ -184,6 +192,47 @@ decl_module! {
 			});
 		}
 	}
+}
+
+impl<T: Trait> Module<T> {
+	/// Is proposal completed with specified outcome?
+	fn ensure_outcome(proposal_hash: T::Hash, expected_outcome: bool) -> Result {
+		if let Some(record) = Self::proposal_of(proposal_hash) {
+			if record.stage != ProposalStage::Completed {
+				return Err("bad origin: proposal not in completed stage")
+			}
+			// TODO: verify the outcome was as expected
+			return Ok(())
+		} else {
+			return Err("bad origin: proposal not found")
+		}
+	}
+}
+
+// TODO: when we figure out const generics as in primitives/u32_trait, we can unify
+// these into a single struct. But for now, we duplicate.
+pub struct EnsurePassed;
+impl<O, T: Trait> EnsureOrigin<O> for EnsurePassed where O: Into<Option<Origin>>
+{
+    type Success = (); // This can be anything, just need a success indicator
+    fn ensure_origin(o: O) -> result::Result<Self::Success, &'static str> {
+			match o.into() {
+				Some(Origin::Proposal(hash)) => <Module<T>>::ensure_outcome(hash, true),
+				_ => Err("bad origin: expected a valid proposal hash"),
+			}
+    }
+}
+
+pub struct EnsureFailed;
+impl<O, T: Trait> EnsureOrigin<O> for EnsureFailed where O: Into<Option<Origin>>
+{
+    type Success = (); // This can be anything, just need a success indicator
+    fn ensure_origin(o: O) -> result::Result<Self::Success, &'static str> {
+			match o.into() {
+				Some(Origin::Proposal(hash)) => <Module<T>>::ensure_outcome(hash, false),
+				_ => Err("bad origin: expected a valid proposal hash"),
+			}
+    }
 }
 
 decl_event!(

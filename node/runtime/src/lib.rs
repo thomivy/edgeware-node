@@ -177,10 +177,9 @@ impl staking::Trait for Runtime {
 	type Event = Event;
 }
 
-// TODO: replace ApproveOrigin and RejectOrigin with voting-related origins
 impl treasury::Trait for Runtime {
-	type ApproveOrigin = system::EnsureRoot<AccountId>;
-	type RejectOrigin = system::EnsureRoot<AccountId>;
+	type ApproveOrigin = governance::EnsurePassed;
+	type RejectOrigin = governance::EnsureFailed;
 	type Event = Event;
 }
 
