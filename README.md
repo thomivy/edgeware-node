@@ -1,14 +1,14 @@
 # edgeware-node
 
-A Parity Substrate node implementing [Edgeware](https://edgewa.re).
+A Parity Substrate node implementing [Straightedge](https://straighted.ge), an ethical fork of [Edgeware](https://edgewa.re).
 
 ## To get started
 
 Download this entire repository to the file system that you are using to run the validator node.
 
-You can do this by going to [this page](https://github.com/hicommonwealth/edgeware-node) and selecting "Clone or download" followed by "Download ZIP".
+You can do this by going to [this page](https://github.com/sikkatech/starightedge-node) and selecting "Clone or download" followed by "Download ZIP".
 
-Once you have downloaded the zip file, unzip the `edgeware-node-master` folder onto the file system. All commands referenced in this document need to be run from within this `edgeware-node-master` folder.
+Once you have downloaded the zip file, unzip the `straightedge-node-master` folder onto the file system. All commands referenced in this document need to be run from within this `straightedge-node-master` folder.
 
 ## Fresh start
 If your device is clean (such as a fresh cloud VM) you can use this script, otherwise, proceed with the *Initial Setup*.
@@ -111,11 +111,11 @@ To ensure you followed the steps correctly, check https://telemetry.polkadot.io/
 * [Treasury](https://github.com/paritytech/substrate/tree/master/srml/treasury)
 * [Sudo](https://github/com.paritytech/substrate/tree/master/srml/sudo)
 
-## Developing on Edgeware
+## Developing on Starightedge
 
 ### Running A Local Chain
 
-To run a chain locally for development purposes: `./target/release/edgeware --chain=local --alice --validator`
+To run a chain locally for development purposes: `./target/release/straightedge --chain=local --alice --validator`
 
 To force your local to create new blocks, even if offline, add the `--force-authoring` flag.
 
@@ -130,7 +130,7 @@ To force your local to create new blocks, even if offline, add the `--force-auth
   - Implement its `Trait` with production types.
   - Add it to the `construct_runtime` macro with all implemented components.
 3. If its storage contains `config` elements, then you need to modify [the chain spec](node/src/chain_spec.rs):
-  - Add it to the `edgeware_runtime`'s list of `Config` types.
+  - Add it to the `straightedge_runtime`'s list of `Config` types.
   - Add it to the `testnet_genesis` function, initializing all storage fields set to `config()`.
 4. Build and run the chain.
 
