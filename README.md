@@ -112,11 +112,11 @@ To start up the Edgeware node and connect to the latest testnet, run:
 * [Timestamp](https://github.com/hicommonwealth/substrate/tree/master/srml/timestamp)
 * [Treasury](https://github.com/hicommonwealth/substrate/tree/master/srml/treasury)
 
-## Developing on Edgeware
+## Developing on Starightedge
 
 ### Running A Local Chain
 
-To run a chain locally for development purposes: `./target/release/edgeware --chain=local --alice --validator`
+To run a chain locally for development purposes: `./target/release/straightedge --chain=local --alice --validator`
 
 To allow apps in your browser to connect, as well as anyone else on your local network, add the `--rpc-cors=all` flag.
 
