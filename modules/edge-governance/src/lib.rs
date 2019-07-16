@@ -24,11 +24,8 @@ extern crate serde;
 // in the wasm runtime.
 #[cfg(feature = "std")]
 extern crate serde_derive;
-#[cfg(test)]
 #[macro_use]
-extern crate hex_literal;
-#[macro_use] extern crate parity_codec_derive;
-#[macro_use] extern crate srml_support;
+extern crate srml_support;
 
 
 extern crate parity_codec as codec;
@@ -41,8 +38,6 @@ extern crate sr_io as runtime_io;
 
 extern crate srml_balances as balances;
 extern crate srml_system as system;
-extern crate srml_consensus as consensus;
-extern crate edge_delegation as delegation;
 extern crate edge_voting as voting;
 
 pub mod governance;
@@ -63,9 +58,8 @@ mod tests {
 	// The testing primitives are very useful for avoiding having to work with signatures
 	// or public keys. `u64` is used as the `AccountId` and no `Signature`s are requried.
 	use runtime_primitives::{
-		BuildStorage,
 		traits::{BlakeTwo256, OnFinalize, IdentityLookup},
-		testing::{Digest, DigestItem, Header, UintAuthorityId}
+		testing::{Header}
 	};
 	use voting::{VoteStage, VoteType};
 	use voting::voting::{VoteOutcome, TallyType};
@@ -76,12 +70,8 @@ mod tests {
 
 	impl_outer_event! {
 		pub enum Event for Test {
-			voting<T>, delegation<T>, balances<T>, governance<T>,
+			voting<T>, balances<T>, governance<T>,
 		}
-	}
-
-	impl_outer_dispatch! {
-		pub enum Call for Test where origin: Origin {}
 	}
 
 	// For testing the module, we construct most of a mock runtime. This means
@@ -95,19 +85,12 @@ mod tests {
 		type BlockNumber = u64;
 		type Hash = H256;
 		type Hashing = BlakeTwo256;
-		type Digest = Digest;
 		type AccountId = u64;
 		type Lookup = IdentityLookup<Self::AccountId>;
 		type Header = Header;
 		type Event = Event;
-		type Log = DigestItem;
 	}
 
-	impl consensus::Trait for Test {
-		type Log = DigestItem;
-		type SessionKey = UintAuthorityId;
-		type InherentOfflineReport = ();
-	}
 	impl balances::Trait for Test {
 		type Balance = u64;
 		type OnFreeBalanceZero = ();
@@ -116,9 +99,6 @@ mod tests {
 		type TransactionPayment = ();
 		type TransferPayment = ();
 		type DustRemoval = ();
-	}
-	impl delegation::Trait for Test {
-		type Event = Event;
 	}
 
 	impl voting::Trait for Test {
@@ -137,7 +117,7 @@ mod tests {
 	const BOND: u64 = 10;
 
 	fn new_test_ext() -> sr_io::TestExternalities<Blake2Hasher> {
-		let mut t = system::GenesisConfig::<Test>::default().build_storage().unwrap().0;
+		let mut t = system::GenesisConfig::default().build_storage::<Test>().unwrap().0;
 		// We use default for brevity, but you can configure as desired if needed.
 		t.extend(
 			governance::GenesisConfig::<Test> {
@@ -237,11 +217,13 @@ mod tests {
 			assert_eq!(System::events(), vec![
 				EventRecord {
 					phase: Phase::ApplyExtrinsic(0),
-					event: Event::voting(voting::RawEvent::VoteCreated(vote_id, public, VoteType::Binary))
+					event: Event::voting(voting::RawEvent::VoteCreated(vote_id, public, VoteType::Binary)),
+					topics: vec![],
 				},
 				EventRecord {
 					phase: Phase::ApplyExtrinsic(0),
-					event: Event::governance(RawEvent::NewProposal(public, hash))
+					event: Event::governance(RawEvent::NewProposal(public, hash)),
+					topics: vec![],
 				}]
 			);
 
@@ -254,19 +236,23 @@ mod tests {
 			assert_eq!(System::events(), vec![
 				EventRecord {
 					phase: Phase::ApplyExtrinsic(0),
-					event: Event::voting(voting::RawEvent::VoteCreated(vote_id, public, VoteType::Binary))
+					event: Event::voting(voting::RawEvent::VoteCreated(vote_id, public, VoteType::Binary)),
+					topics: vec![],
 				},
 				EventRecord {
 					phase: Phase::ApplyExtrinsic(0),
-					event: Event::governance(RawEvent::NewProposal(public, hash))
+					event: Event::governance(RawEvent::NewProposal(public, hash)),
+					topics: vec![],
 				},
 				EventRecord {
 					phase: Phase::ApplyExtrinsic(0),
-					event: Event::voting(voting::RawEvent::VoteCreated(vote_id2, public, VoteType::Binary))
+					event: Event::voting(voting::RawEvent::VoteCreated(vote_id2, public, VoteType::Binary)),
+					topics: vec![],
 				},
 				EventRecord {
 					phase: Phase::ApplyExtrinsic(0),
-					event: Event::governance(RawEvent::NewProposal(public, hash2))
+					event: Event::governance(RawEvent::NewProposal(public, hash2)),
+					topics: vec![],
 				},]
 			);
 			assert_eq!(Governance::proposal_count(), 2);
@@ -362,19 +348,23 @@ mod tests {
 			assert_eq!(System::events(), vec![
 				EventRecord {
 					phase: Phase::ApplyExtrinsic(0),
-					event: Event::voting(voting::RawEvent::VoteCreated(vote_id, public, VoteType::Binary))
+					event: Event::voting(voting::RawEvent::VoteCreated(vote_id, public, VoteType::Binary)),
+					topics: vec![],
 				},
 				EventRecord {
 					phase: Phase::ApplyExtrinsic(0),
-					event: Event::governance(RawEvent::NewProposal(public, hash))
+					event: Event::governance(RawEvent::NewProposal(public, hash)),
+					topics: vec![],
 				},
 				EventRecord {
 					phase: Phase::ApplyExtrinsic(0),
-					event: Event::voting(voting::RawEvent::VoteAdvanced(vote_id, VoteStage::PreVoting, VoteStage::Voting))
+					event: Event::voting(voting::RawEvent::VoteAdvanced(vote_id, VoteStage::PreVoting, VoteStage::Voting)),
+					topics: vec![],
 				},
 				EventRecord {
 					phase: Phase::ApplyExtrinsic(0),
-					event: Event::governance(RawEvent::VotingStarted(hash, vote_id, vote_ends_at))
+					event: Event::governance(RawEvent::VotingStarted(hash, vote_id, vote_ends_at)),
+					topics: vec![],
 				},]
 			);
 			assert_eq!(Governance::active_proposals(), vec![(hash, 10001)]);
@@ -449,19 +439,23 @@ mod tests {
 			assert_eq!(System::events(), vec![
 				EventRecord {
 					phase: Phase::ApplyExtrinsic(0),
-					event: Event::voting(voting::RawEvent::VoteCreated(vote_id, public, VoteType::Binary))
+					event: Event::voting(voting::RawEvent::VoteCreated(vote_id, public, VoteType::Binary)),
+					topics: vec![],
 				},
 				EventRecord {
 					phase: Phase::ApplyExtrinsic(0),
-					event: Event::governance(RawEvent::NewProposal(public, hash))
+					event: Event::governance(RawEvent::NewProposal(public, hash)),
+					topics: vec![],
 				},
 				EventRecord {
 					phase: Phase::ApplyExtrinsic(0),
-					event: Event::voting(voting::RawEvent::VoteAdvanced(vote_id, VoteStage::PreVoting, VoteStage::Voting))
+					event: Event::voting(voting::RawEvent::VoteAdvanced(vote_id, VoteStage::PreVoting, VoteStage::Voting)),
+					topics: vec![],
 				},
 				EventRecord {
 					phase: Phase::ApplyExtrinsic(0),
-					event: Event::governance(RawEvent::VotingStarted(hash, vote_id, vote_ends_at))
+					event: Event::governance(RawEvent::VotingStarted(hash, vote_id, vote_ends_at)),
+					topics: vec![],
 				},]
 			);
 
@@ -472,30 +466,33 @@ mod tests {
 			assert_eq!(System::events(), vec![
 				EventRecord {
 					phase: Phase::ApplyExtrinsic(0),
-					event: Event::voting(voting::RawEvent::VoteCreated(vote_id, public, VoteType::Binary))
+					event: Event::voting(voting::RawEvent::VoteCreated(vote_id, public, VoteType::Binary)),
+					topics: vec![],
 				},
 				EventRecord {
 					phase: Phase::ApplyExtrinsic(0),
-					event: Event::governance(RawEvent::NewProposal(public, hash))
+					event: Event::governance(RawEvent::NewProposal(public, hash)),
+					topics: vec![],
 				},
 				EventRecord {
 					phase: Phase::ApplyExtrinsic(0),
-					event: Event::voting(voting::RawEvent::VoteAdvanced(vote_id, VoteStage::PreVoting, VoteStage::Voting))
+					event: Event::voting(voting::RawEvent::VoteAdvanced(vote_id, VoteStage::PreVoting, VoteStage::Voting)),
+					topics: vec![],
 				},
 				EventRecord {
 					phase: Phase::ApplyExtrinsic(0),
-					event: Event::governance(RawEvent::VotingStarted(hash, vote_id, vote_ends_at))
+					event: Event::governance(RawEvent::VotingStarted(hash, vote_id, vote_ends_at)),
+					topics: vec![],
 				},
 				EventRecord {
 					phase: Phase::ApplyExtrinsic(0),
-					event: Event::voting(voting::RawEvent::VoteAdvanced(vote_id, VoteStage::Voting, VoteStage::Completed))
+					event: Event::voting(voting::RawEvent::VoteAdvanced(vote_id, VoteStage::Voting, VoteStage::Completed)),
+					topics: vec![],
 				},
 				EventRecord {
 					phase: Phase::ApplyExtrinsic(0),
-					event: Event::governance(RawEvent::VotingCompleted(
-						hash,
-						vote_id,
-					))
+					event: Event::governance(RawEvent::VotingCompleted(hash, vote_id)),
+					topics: vec![],
 				}]
 			);
 
