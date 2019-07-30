@@ -187,10 +187,10 @@ pub fn testnet_genesis(
             phantom: Default::default(),
         }),
         elections: Some(ElectionsConfig {
-            members: initial_authorities.iter().map(|x| (x.1.clone(), 1000000)).collect(),
-            desired_seats: desired_seats,
-            presentation_duration: 1 * DAYS,
-            term_duration: 28 * DAYS,
+            members: initial_authorities.iter().map(|x| (x.1.clone(), 75)).collect(),
+            desired_seats: 5,
+            presentation_duration: 50,
+            term_duration: 75,
         }),
         contracts: Some(ContractsConfig {
             current_schedule: Default::default(),
@@ -215,7 +215,7 @@ pub fn testnet_genesis(
             registration_bond: 1 * DOLLARS,
         }),
         governance: Some(GovernanceConfig {
-            voting_length: 7 * DAYS, // 7 days
+            voting_length: 50, // 7 days
             proposal_creation_bond: 1 * DOLLARS,
         }),
     }

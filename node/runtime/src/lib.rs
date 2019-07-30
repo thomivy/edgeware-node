@@ -107,7 +107,7 @@ pub type DealWithFees = SplitTwoWays<
 	_1, Author,     // 1 part (20%) goes to the block author.
 >;
 
-pub const SECS_PER_BLOCK: Moment = 6;
+pub const SECS_PER_BLOCK: Moment = 3;
 pub const MINUTES: Moment = 60 / SECS_PER_BLOCK;
 pub const HOURS: Moment = MINUTES * 60;
 pub const DAYS: Moment = HOURS * 24;
@@ -249,12 +249,12 @@ impl staking::Trait for Runtime {
 }
 
 parameter_types! {
-	pub const LaunchPeriod: BlockNumber = 28 * 24 * 60 * MINUTES;
-	pub const VotingPeriod: BlockNumber = 28 * 24 * 60 * MINUTES;
-	pub const EmergencyVotingPeriod: BlockNumber = 3 * 24 * 60 * MINUTES;
+	pub const LaunchPeriod: BlockNumber = 25;
+	pub const VotingPeriod: BlockNumber = 25;
+	pub const EmergencyVotingPeriod: BlockNumber = 20;
 	pub const MinimumDeposit: Balance = 100 * DOLLARS;
-	pub const EnactmentPeriod: BlockNumber = 30 * 24 * 60 * MINUTES;
-	pub const CooloffPeriod: BlockNumber = 30 * 24 * 60 * MINUTES;
+	pub const EnactmentPeriod: BlockNumber = 10;
+	pub const CooloffPeriod: BlockNumber = 25;
 }
 
 impl democracy::Trait for Runtime {
@@ -290,7 +290,7 @@ parameter_types! {
 	pub const CarryCount: u32 = 6;
 	// one additional vote should go by before an inactive voter can be reaped.
 	pub const InactiveGracePeriod: VoteIndex = 1;
-	pub const ElectionsVotingPeriod: BlockNumber = 2 * DAYS;
+	pub const ElectionsVotingPeriod: BlockNumber = 50;
 	pub const DecayRatio: u32 = 0;
 }
 
