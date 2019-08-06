@@ -189,7 +189,7 @@ pub fn testnet_genesis(
         elections: Some(ElectionsConfig {
             members: initial_authorities.iter().map(|x| (x.1.clone(), 75)).collect(),
             desired_seats: 5,
-            presentation_duration: 50,
+            presentation_duration: 15,
             term_duration: 75,
         }),
         contracts: Some(ContractsConfig {
