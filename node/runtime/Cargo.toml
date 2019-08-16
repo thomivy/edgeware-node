@@ -1,6 +1,6 @@
 [package]
 name = "edgeware-runtime"
-version = "0.3.0"
+version = "0.7.0"
 authors = ["Commonwealth Labs <hello@commonwealth.im>"]
 edition = "2018"
 build = "build.rs"
@@ -9,10 +9,10 @@ build = "build.rs"
 integer-sqrt = { version = "0.1.2" }
 safe-mix = { version = "1.0", default-features = false }
 parity-codec = { package = "parity-scale-codec", version = "1.0.0", default-features = false, features = ["derive"] }
-substrate-primitives = { git = "https://github.com/paritytech/substrate", default-features = false }
+primitives = { package = "substrate-primitives", git = "https://github.com/paritytech/substrate" }
 client = { package = "substrate-client", git = "https://github.com/paritytech/substrate", default-features = false }
 rstd = { package = "sr-std", git = "https://github.com/paritytech/substrate", default-features = false }
-runtime_primitives = { package = "sr-primitives", git = "https://github.com/paritytech/substrate", default-features = false }
+runtime-primitives = { package = "sr-primitives", git = "https://github.com/paritytech/substrate", default-features = false }
 offchain-primitives = { package = "substrate-offchain-primitives", git = "https://github.com/paritytech/substrate", default-features = false }
 version = { package = "sr-version", git = "https://github.com/paritytech/substrate", default-features = false }
 support = { package = "srml-support", git = "https://github.com/paritytech/substrate", default-features = false }
@@ -29,15 +29,18 @@ grandpa = { package = "srml-grandpa", git = "https://github.com/paritytech/subst
 indices = { package = "srml-indices", git = "https://github.com/paritytech/substrate", default-features = false }
 session = { package = "srml-session", git = "https://github.com/paritytech/substrate", default-features = false, features = ["historical"] }
 staking = { package = "srml-staking", git = "https://github.com/paritytech/substrate", default-features = false }
+sr-staking-primitives = { git = "https://github.com/paritytech/substrate", default-features = false }
 system = { package = "srml-system", git = "https://github.com/paritytech/substrate", default-features = false }
 timestamp = { package = "srml-timestamp", git = "https://github.com/paritytech/substrate", default-features = false }
 treasury = { package = "srml-treasury", git = "https://github.com/paritytech/substrate", default-features = false }
 sudo = { package = "srml-sudo", git = "https://github.com/paritytech/substrate", default-features = false }
-consensus_aura = { package = "substrate-consensus-aura-primitives", git = "https://github.com/paritytech/substrate", default-features = false }
+aura-primitives = { package = "substrate-consensus-aura-primitives", git = "https://github.com/paritytech/substrate", default-features = false }
 im-online = { package = "srml-im-online", git = "https://github.com/paritytech/substrate", default-features = false }
+offences = { package = "srml-offences", git = "https://github.com/paritytech/substrate", default-features = false }
 rustc-hex = { version = "2.0", optional = true }
 serde = { version = "1.0", optional = true }
 substrate-keyring = { git = "https://github.com/paritytech/substrate", optional = true }
+substrate-session = { git = "https://github.com/paritytech/substrate", default-features = false }
 
 edge-identity = { path = "../../modules/edge-identity", default-features = false }
 edge-voting = { path = "../../modules/edge-voting", default-features = false }
@@ -55,9 +58,9 @@ no_std = [
 ]
 std = [
 	"parity-codec/std",
-	"substrate-primitives/std",
+	"primitives/std",
 	"rstd/std",
-	"runtime_primitives/std",
+	"runtime-primitives/std",
 	"support/std",
 	"aura/std",
 	"authorship/std",
@@ -80,11 +83,13 @@ std = [
 	"serde",
 	"safe-mix/std",
 	"client/std",
-	"consensus_aura/std",
+	"aura-primitives/std",
 	"rustc-hex",
 	"substrate-keyring",
+	"substrate-session/std",
 	"offchain-primitives/std",
 	"im-online/std",
+	"offences/std",
 	"edge-identity/std",
 	"edge-voting/std",
 	"edge-signaling/std",

@@ -21,7 +21,7 @@
 #![cfg_attr(not(feature = "std"), no_std)]
 
 use runtime_primitives::{
-	generic, traits::{Verify, BlakeTwo256}, OpaqueExtrinsic, AnySignature
+	generic, traits::{Verify, BlakeTwo256}, OpaqueExtrinsic
 };
 
 /// An index to a block.
@@ -57,12 +57,14 @@ pub type AuraId = consensus_aura::sr25519::AuthorityId;
 pub type AuraSignature = consensus_aura::sr25519::AuthoritySignature;
 
 /// Index of a transaction in the chain.
-pub type Index = u64;
+pub type Index = u32;
 
 /// A hash of some data used by the chain.
 pub type Hash = primitives::H256;
 
-/// A timestamp: seconds since the unix epoch.
+/// A timestamp: milliseconds since the unix epoch.
+/// `u64` is enough to represent a duration of half a billion years, when the
+/// time scale is milliseconds.
 pub type Timestamp = u64;
 
 /// Digest item type.
