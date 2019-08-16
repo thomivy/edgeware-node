@@ -28,11 +28,13 @@ use runtime_primitives::{
 pub type BlockNumber = u64;
 
 /// Alias to 512-bit hash when used in the context of a transaction signature on the chain.
-pub type Signature = AnySignature;
+pub type Signature = primitives::sr25519::Signature;
 
-/// Some way of identifying an account on the chain. We intentionally make it equivalent
-/// to the public key of our transaction signing scheme.
-pub type AccountId = <Signature as Verify>::Signer;
+/// The type used by authorities to prove their ID.
+pub type AccountSignature = primitives::sr25519::Signature;
+
+/// Alias to pubkey that identifies an account on the chain.
+pub type AccountId = <AccountSignature as Verify>::Signer;
 
 /// The type for looking up accounts. We don't expect more than 4 billion of them, but you
 /// never know...
@@ -46,13 +48,13 @@ pub type Moment = u64;
 
 /// The aura crypto scheme defined via the keypair type.
 #[cfg(feature = "std")]
-pub type AuraPair = primitives::ed25519::Pair;
+pub type AuraPair = consensus_aura::sr25519::AuthorityPair;
 
-/// Identity of an Aura authority.
-pub type AuraId = primitives::ed25519::Public;
+/// The Ed25519 pub key of an session that belongs to an Aura authority of the chain.
+pub type AuraId = consensus_aura::sr25519::AuthorityId;
 
-/// Signature for an Aura authority.
-pub type AuraSignature = primitives::ed25519::Signature;
+/// Alias to the signature scheme used for Aura authority signatures.
+pub type AuraSignature = consensus_aura::sr25519::AuthoritySignature;
 
 /// Index of a transaction in the chain.
 pub type Index = u64;

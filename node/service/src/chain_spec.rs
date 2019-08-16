@@ -15,7 +15,7 @@
 // along with Edgeware.  If not, see <http://www.gnu.org/licenses/>
 
 use primitives::{ed25519, sr25519, Pair};
-use edgeware_primitives::{AccountId, AuraId, Balance};
+use edgeware_primitives::{AccountId, AuraId, Balance, AuraPair};
 use edgeware_runtime::{
 	GrandpaConfig, BalancesConfig, ContractsConfig, ElectionsConfig, DemocracyConfig, CouncilConfig,
 	AuraConfig, IndicesConfig, SessionConfig, StakingConfig, SudoConfig, TreasuryRewardConfig,
@@ -98,6 +98,7 @@ pub fn edgeware_testnet_config_gensis() -> GenesisConfig {
 			invulnerables: commonwealth_authorities.iter().map(|x| x.0.clone())
 				.chain(lockdrop_validators.iter().map(|x| x.0.clone()))
 				.collect(),
+			.. Default::default()
 		}),
 		democracy: Some(DemocracyConfig::default()),
 		collective_Instance1: Some(CouncilConfig {
@@ -122,8 +123,7 @@ pub fn edgeware_testnet_config_gensis() -> GenesisConfig {
 			key: root_key,
 		}),
 		im_online: Some(ImOnlineConfig {
-			gossip_at: 0,
-			last_new_era_start: 0,
+			keys: vec![],
 		}),
 		aura: Some(AuraConfig {
 			authorities: commonwealth_authorities.iter().map(|x| x.2.clone())
@@ -169,8 +169,14 @@ pub fn edgeware_testnet_config() -> Result<ChainSpec, String> {
 	))
 }
 
-fn session_keys(key: ed25519::Public) -> SessionKeys {
-	SessionKeys { ed25519: key }
+fn session_keys(aura: AuraPair, im_online: AuraPair) -> SessionKeys {
+	SessionKeys { aura, im_online }
+}
+
+fn authority_key(s: &str) -> AuraId {
+	AuraPair::from_string(&format!("//{}", s), None)
+		.expect("static values are valid; qed")
+		.public()
 }
 
 /// Helper function to generate AccountId from seed
@@ -267,6 +273,7 @@ pub fn development_genesis(
 			minimum_validator_count: 4,
 			stakers: initial_authorities.iter().map(|x| (x.0.clone(), x.1.clone(), STASH, StakerStatus::Validator)).collect(),
 			invulnerables: initial_authorities.iter().map(|x| x.0.clone()).collect(),
+			.. Default::default()
 		}),
 		democracy: Some(DemocracyConfig::default()),
 		collective_Instance1: Some(CouncilConfig {
@@ -287,8 +294,7 @@ pub fn development_genesis(
 			key: root_key,
 		}),
 		im_online: Some(ImOnlineConfig {
-			gossip_at: 0,
-			last_new_era_start: 0,
+			keys: vec![],
 		}),
 		aura: Some(AuraConfig {
 			authorities: initial_authorities.iter().map(|x| x.2.clone()).collect(),

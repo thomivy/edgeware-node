@@ -10,6 +10,7 @@ parity-codec = { version = "4.1.1", default-features = false, features = ["deriv
 primitives = { package = "substrate-primitives", git = "https://github.com/paritytech/substrate", default-features = false }
 rstd = { package = "sr-std", git = "https://github.com/paritytech/substrate", default-features = false }
 runtime_primitives = { package = "sr-primitives", git = "https://github.com/paritytech/substrate", default-features = false }
+consensus-aura = { package = "substrate-consensus-aura-primitives", git = "https://github.com/paritytech/substrate", default_features = false }
 
 [dev-dependencies]
 substrate-serializer = { git = "https://github.com/paritytech/substrate" }
