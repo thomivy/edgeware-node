@@ -136,6 +136,12 @@ du -hs /root/edgeware-node
 * Check if listed on Polkascan and that stash is bonded https://polkascan.io/pre/edgeware-testnet/session/validator since it should be automatically bonded from genesis if you're in the validator set, and check that your correct session account is shown there too. Click on details next to a validator
 * Check that you're earning staking rewards when running session keyed validator. See what's shown under "Additional bonded by nominators" or "Commission"
 
+### Consider setting up an IP Failover solution
+
+See https://www.linode.com/docs/platform/manager/remote-access/#configuring-ip-sharing. But have to somehow protect from double-signing. Say you have two linodes with IP failover detects it should switch after linode1 signs one block, and linode2 signs a different one just after. Credit: @fress
+
+An alternative solution using a different VPS with failover is here: https://medium.com/hackernoon/a-serverless-failover-solution-for-web-3-0-validator-nodes-e26b9d24c71d
+
 ### Interact with Edgeware Node
 
 * TBC - Use Edgeware's polkadot.js.org Apps equivalent
@@ -249,3 +255,5 @@ Unless Cargo.lock already updated to use the fixed code in the substrate-telemet
   * https://medium.com/@meleacrypto (Edgeware Validator Guide)
   * https://wiki.polkadot.network/en/latest/polkadot/node/guides/how-to-validate/
   * https://github.com/ltfschoen/polkadot-linode
+  * https://github.com/luboremo/Edgeware-seed-generating-script-SSSS
+  * https://wiki.polkadot.network/en/latest/polkadot/node/node-operator/#security-key-management
