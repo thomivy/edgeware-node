@@ -1,4 +1,4 @@
-# edgeware-node
+# straightedge-node
 
 [Edgeware](https://edgewa.re) is an:
 - On-chain Governed,
@@ -77,7 +77,7 @@ Ensure you have a fresh start if updating from another version:
 ```
 ./scripts/purge-chain.sh
 ```
-To start up the Edgeware node and connect to the latest testnet, run:
+<!-- To start up the Straightedge node and connect to the latest testnet, run:
 ```
 ./target/release/edgeware --chain=edgeware-testnet-v8 --name <INSERT_NAME>
 ```
