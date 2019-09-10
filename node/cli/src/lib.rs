@@ -1,24 +1,24 @@
 // Copyright 2018 Commonwealth Labs, Inc.
-// This file is part of Edgeware.
+// This file is part of Straightedge.
 
-// Edgeware is free software: you can redistribute it and/or modify
+// Straightedge is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 
-// Edgeware is distributed in the hope that it will be useful,
+// Straightedge is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 
 // You should have received a copy of the GNU General Public License
-// along with Edgeware.  If not, see <http://www.gnu.org/licenses/>
+// along with Straightedge.  If not, see <http://www.gnu.org/licenses/>
 
 #![warn(missing_docs)]
 #![warn(unused_extern_crates)]
 
 use client::ExecutionStrategies;
-use edgeware_service as service;
+use straightedge_service as service;
 use substrate_service;
 
 #[macro_use]
@@ -133,7 +133,7 @@ pub fn run<I, T, E>(args: I, exit: E, version: cli::VersionInfo) -> error::Resul
 	T: Into<std::ffi::OsString> + Clone,
 	E: IntoExit,
 {
-	match parse_and_prepare::<CustomSubcommands, NoCustom, _>(&version, "edgeware-node", args) {
+	match parse_and_prepare::<CustomSubcommands, NoCustom, _>(&version, "straightedge-node", args) {
 		ParseAndPrepare::Run(cmd) => cmd.run::<(), _, _, _, _>(load_spec, exit,
 		|exit, _cli_args, _custom_args, config| {
 			info!("{}", version.name);

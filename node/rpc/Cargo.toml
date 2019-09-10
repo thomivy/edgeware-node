@@ -1,5 +1,5 @@
 [package]
-name = "edgeware-rpc"
+name = "straightedge-rpc"
 version = "0.1.0"
 authors = ["drewstone <drewstone329@gmail.com>"]
 edition = "2018"
@@ -17,8 +17,8 @@ serde = { version = "1.0", features = ["derive"] }
 sr-primitives = { git = "https://github.com/hicommonwealth/substrate.git" }
 substrate-primitives = { git = "https://github.com/hicommonwealth/substrate.git" }
 transaction_pool = { package = "substrate-transaction-pool", git = "https://github.com/hicommonwealth/substrate.git" }
-edgeware-primitives = { path = "../primitives" }
+straightedge-primitives = { path = "../primitives" }
 
 [dev-dependencies]
-edgeware-runtime = { path = "../runtime" }
+straightedge-runtime = { path = "../runtime" }
 env_logger = "0.6"

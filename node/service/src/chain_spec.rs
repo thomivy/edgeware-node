@@ -1,30 +1,30 @@
 // Copyright 2018 Commonwealth Labs, Inc.
-// This file is part of Edgeware.
+// This file is part of Straightedge.
 
-// Edgeware is free software: you can redistribute it and/or modify
+// Straightedge is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 
-// Edgeware is distributed in the hope that it will be useful,
+// Straightedge is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 
 // You should have received a copy of the GNU General Public License
-// along with Edgeware.  If not, see <http://www.gnu.org/licenses/>
+// along with Straightedge.  If not, see <http://www.gnu.org/licenses/>
 
 use primitives::{Pair, Public};
-use edgeware_primitives::{AccountId, AuraId, Balance};
+use straightedge_primitives::{AccountId, AuraId, Balance};
 use im_online::ed25519::{AuthorityId as ImOnlineId};
-use edgeware_runtime::{
+use straightedge_runtime::{
 	GrandpaConfig, BalancesConfig, ContractsConfig, ElectionsConfig, DemocracyConfig, CouncilConfig,
 	AuraConfig, IndicesConfig, SessionConfig, StakingConfig, SudoConfig, TreasuryRewardConfig,
 	SystemConfig, ImOnlineConfig, WASM_BINARY, Perbill, SessionKeys, StakerStatus, AuthorityDiscoveryConfig,
 };
-use edgeware_runtime::constants::{time::DAYS, currency::DOLLARS, currency::MILLICENTS};
-use edgeware_runtime::{IdentityConfig, SignalingConfig};
-pub use edgeware_runtime::GenesisConfig;
+use straightedge_runtime::constants::{time::DAYS, currency::DOLLARS, currency::MILLICENTS};
+use straightedge_runtime::{IdentityConfig, SignalingConfig};
+pub use straightedge_runtime::GenesisConfig;
 use substrate_service;
 use substrate_telemetry::TelemetryEndpoints;
 use grandpa::AuthorityId as GrandpaId;
@@ -37,27 +37,20 @@ use rand::{thread_rng};
 
 
 const STAGING_TELEMETRY_URL: &str = "wss://telemetry.polkadot.io/submit/";
-const DEFAULT_PROTOCOL_ID: &str = "edg";
+const DEFAULT_PROTOCOL_ID: &str = "str";
 
 /// Specialised `ChainSpec`.
 pub type ChainSpec = substrate_service::ChainSpec<GenesisConfig>;
 
-pub fn edgeware_testnet_v7_config() -> ChainSpec {
-	match ChainSpec::from_json_file(std::path::PathBuf::from("testnets/v0.7.0/edgeware.json")) {
+pub fn straightedge_testnet_v8_config() -> ChainSpec {
+	match ChainSpec::from_json_file(std::path::PathBuf::from("testnets/v0.8.0/straightedge.json")) {
 		Ok(spec) => spec,
 		Err(e) => panic!(e),
 	}
 }
 
-pub fn edgeware_testnet_v8_config() -> ChainSpec {
-	match ChainSpec::from_json_file(std::path::PathBuf::from("testnets/v0.8.0/edgeware.json")) {
-		Ok(spec) => spec,
-		Err(e) => panic!(e),
-	}
-}
-
-pub fn edgeware_testnet_config_gensis() -> GenesisConfig {
-	let commonwealth_authorities: Vec<(AccountId, AccountId, AuraId, Balance, GrandpaId, ImOnlineId)> = get_commonwealth_validators();
+pub fn straightedge_testnet_config_gensis() -> GenesisConfig {
+	let commonwealth_authorities: Vec<(AccountId, AccountId, AuraId, Balance, GrandpaId, ImOnlineId)> = get_genesis_validators();
 	let allocation = get_allocation().unwrap();
 	let lockdrop_balances = allocation.0;
 	let lockdrop_vesting = allocation.1;
@@ -167,8 +160,8 @@ pub fn edgeware_testnet_config_gensis() -> GenesisConfig {
 	}
 }
 
-/// Edgeware testnet generator
-pub fn edgeware_testnet_config() -> Result<ChainSpec, String> {
+/// Straightedge testnet generator
+pub fn straightedge_testnet_config() -> Result<ChainSpec, String> {
 	let boot_nodes = vec![
 		"/ip4/157.230.218.41/tcp/30333/p2p/QmNYiKrVuztYuL42gs5kHLTqvKsmEnE3GvJQ8ewcvwtSVF".to_string(),
 		"/ip4/18.223.143.102/tcp/30333/p2p/QmdHoon1jbjeJfTdifknGefGrJHUNYgDDpnJBLLW1Pdt13".to_string(),
@@ -177,9 +170,9 @@ pub fn edgeware_testnet_config() -> Result<ChainSpec, String> {
 	];
 
 	Ok(ChainSpec::from_genesis(
-		"Edgeware Testnet",
-		"edgeware_testnet",
-		edgeware_testnet_config_gensis,
+		"Straightedge Testnet",
+		"straightedge_testnet",
+		straightedge_testnet_config_gensis,
 		boot_nodes,
 		Some(TelemetryEndpoints::new(vec![(STAGING_TELEMETRY_URL.to_string(), 0)])),
 		Some(DEFAULT_PROTOCOL_ID),

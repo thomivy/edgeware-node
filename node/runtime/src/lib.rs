@@ -1,20 +1,20 @@
 // Copyright 2018-2019 Commonwealth Labs, Inc.
-// This file is part of Edgeware.
+// This file is part of Straightedge.
 
-// Edgeware is free software: you can redistribute it and/or modify
+// Straightedge is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 
-// Edgeware is distributed in the hope that it will be useful,
+// Straightedge is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 
 // You should have received a copy of the GNU General Public License
-// along with Edgeware.  If not, see <http://www.gnu.org/licenses/>
+// along with Straightedge.  If not, see <http://www.gnu.org/licenses/>
 
-//! The Edgeware runtime. This can be compiled with `#[no_std]`, ready for Wasm.
+//! The Straightedge runtime. This can be compiled with `#[no_std]`, ready for Wasm.
 
 #![cfg_attr(not(feature = "std"), no_std)]
 // `construct_runtime!` does a lot of recursion and requires us to increase the limit to 256.
@@ -30,7 +30,7 @@ use support::{
 	construct_runtime, parameter_types, traits::{SplitTwoWays, Currency}
 };
 use substrate_primitives::u32_trait::{_1, _2, _3, _4};
-use edgeware_primitives::{
+use straightedge_primitives::{
 	AccountId, AccountIndex, AuraId, Balance, BlockNumber, Hash, Index,
 	Moment, Signature,
 };
@@ -83,8 +83,8 @@ include!(concat!(env!("OUT_DIR"), "/wasm_binary.rs"));
 
 /// This runtime version.
 pub const VERSION: RuntimeVersion = RuntimeVersion {
-	spec_name: create_runtime_str!("edgeware"),
-	impl_name: create_runtime_str!("edgeware-node"),
+	spec_name: create_runtime_str!("straightedge"),
+	impl_name: create_runtime_str!("straightedge-node"),
 	authoring_version: 13,
 	// Per convention: if the runtime behavior changes, increment spec_version and set impl_version
 	// to equal spec_version. If only runtime implementation changes and behavior does not, then
@@ -456,7 +456,7 @@ impl treasury_reward::Trait for Runtime {
 construct_runtime!(
 	pub enum Runtime where
 		Block = Block,
-		NodeBlock = edgeware_primitives::Block,
+		NodeBlock = straightedge_primitives::Block,
 		UncheckedExtrinsic = UncheckedExtrinsic
 	{
 		System: system::{Module, Call, Storage, Config, Event},
@@ -584,7 +584,7 @@ impl_runtime_apis! {
 		}
 	}
 
-	impl edgeware_primitives::AccountNonceApi<Block> for Runtime {
+	impl straightedge_primitives::AccountNonceApi<Block> for Runtime {
 		fn account_nonce(account: AccountId) -> Index {
 			System::account_nonce(account)
 		}

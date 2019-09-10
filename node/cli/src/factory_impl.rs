@@ -23,7 +23,7 @@ use rand::rngs::StdRng;
 
 use parity_codec::{Encode, Decode};
 use keyring::sr25519::Keyring;
-use edgeware_runtime::{Call, CheckedExtrinsic, UncheckedExtrinsic, SignedExtra, BalancesCall, ExistentialDeposit};
+use straightedge_runtime::{Call, CheckedExtrinsic, UncheckedExtrinsic, SignedExtra, BalancesCall, ExistentialDeposit};
 use primitives::{sr25519, crypto::Pair};
 use sr_primitives::{generic::Era, traits::{Block as BlockT, Header as HeaderT, SignedExtension}};
 use transaction_factory::RuntimeAdapter;
@@ -46,10 +46,10 @@ pub struct FactoryState<N> {
 	num: u32,
 }
 
-type Number = <<edgeware_primitives::Block as BlockT>::Header as HeaderT>::Number;
+type Number = <<straightedge_primitives::Block as BlockT>::Header as HeaderT>::Number;
 
 impl<Number> FactoryState<Number> {
-	fn build_extra(index: edgeware_primitives::Index, phase: u64) -> edgeware_runtime::SignedExtra {
+	fn build_extra(index: straightedge_primitives::Index, phase: u64) -> straightedge_runtime::SignedExtra {
 		(
 			system::CheckVersion::new(),
 			system::CheckGenesis::new(),
@@ -62,12 +62,12 @@ impl<Number> FactoryState<Number> {
 }
 
 impl RuntimeAdapter for FactoryState<Number> {
-	type AccountId = edgeware_primitives::AccountId;
-	type Balance = edgeware_primitives::Balance;
-	type Block = edgeware_primitives::Block;
+	type AccountId = straightedge_primitives::AccountId;
+	type Balance = straightedge_primitives::Balance;
+	type Block = straightedge_primitives::Block;
 	type Phase = sr_primitives::generic::Phase;
 	type Secret = sr25519::Pair;
-	type Index = edgeware_primitives::Index;
+	type Index = straightedge_primitives::Index;
 
 	type Number = Number;
 

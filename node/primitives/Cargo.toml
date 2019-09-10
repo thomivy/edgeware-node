@@ -1,5 +1,5 @@
 [package]
-name = "edgeware-primitives"
+name = "straightedge-primitives"
 version = "0.1.0"
 authors = ["Commonwealth Labs <hello@commonwealth.im>"]
 edition = "2018"

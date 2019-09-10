@@ -1,18 +1,18 @@
 // Copyright 2018 Commonwealth Labs, Inc.
-// This file is part of Edgeware.
+// This file is part of Straightedge.
 
-// Edgeware is free software: you can redistribute it and/or modify
+// Straightedge is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 
-// Edgeware is distributed in the hope that it will be useful,
+// Straightedge is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 
 // You should have received a copy of the GNU General Public License
-// along with Edgeware.  If not, see <http://www.gnu.org/licenses/>
+// along with Straightedge.  If not, see <http://www.gnu.org/licenses/>
 
 #![cfg_attr(not(feature = "std"), no_std)]
 
@@ -196,8 +196,8 @@ mod tests {
 	}
 
 	fn generate_proposal() -> (&'static[u8], &'static[u8]) {
-		let title: &[u8] = b"Make Edgeware Free";
-		let proposal: &[u8] = b"Simple: make Edgeware free for everyone";
+		let title: &[u8] = b"Make Striaghtedge Free";
+		let proposal: &[u8] = b"Simple: make Straightedge free for everyone";
 		return (title, proposal);
 	}
 

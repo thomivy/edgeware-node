@@ -1,18 +1,18 @@
 // Copyright 2018 Commonwealth Labs, Inc.
-// This file is part of Edgeware.
+// This file is part of Straightedge.
 
-// Edgeware is free software: you can redistribute it and/or modify
+// Straightedge is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 
-// Edgeware is distributed in the hope that it will be useful,
+// Straightedge is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 
 // You should have received a copy of the GNU General Public License
-// along with Edgeware.  If not, see <http://www.gnu.org/licenses/>
+// along with Straightedge.  If not, see <http://www.gnu.org/licenses/>
 
 #![warn(unused_extern_crates)]
 use std::sync::Arc;
@@ -21,9 +21,9 @@ use std::sync::Arc;
 use aura::{import_queue, start_aura, SlotDuration};
 use client::{self, LongestChain};
 use grandpa::{self, FinalityProofProvider as GrandpaFinalityProofProvider};
-use edgeware_executor;
-use edgeware_primitives::{Block};
-use edgeware_runtime::{GenesisConfig, RuntimeApi};
+use straightedge_executor;
+use straightedge_primitives::{Block};
+use straightedge_runtime::{GenesisConfig, RuntimeApi};
 use substrate_service::{
 	AbstractService, ServiceBuilder, config::Configuration, error::{Error as ServiceError},
 };
@@ -52,7 +52,7 @@ macro_rules! new_full_start {
 		let inherent_data_providers = inherents::InherentDataProviders::new();
 
 		let builder = substrate_service::ServiceBuilder::new_full::<
-			edgeware_primitives::Block, edgeware_runtime::RuntimeApi, edgeware_executor::Executor
+			straightedge_primitives::Block, straightedge_runtime::RuntimeApi, straightedge_executor::Executor
 		>($config)?
 			.with_select_chain(|_config, client| {
 				#[allow(deprecated)]
@@ -65,7 +65,7 @@ macro_rules! new_full_start {
 				let select_chain = select_chain.take()
 					.ok_or_else(|| substrate_service::Error::SelectChainRequired)?;
 				let (block_import, link_half) =
-					grandpa::block_import::<_, _, _, edgeware_runtime::RuntimeApi, _, _>(
+					grandpa::block_import::<_, _, _, straightedge_runtime::RuntimeApi, _, _>(
 						client.clone(), client.clone(), select_chain
 					)?;
 				let justification_import = block_import.clone();
@@ -84,7 +84,7 @@ macro_rules! new_full_start {
 				Ok(import_queue)
 			})?
 			.with_rpc_extensions(|client, pool| {
-				use edgeware_rpc::accounts::{Accounts, AccountsApi};
+				use straightedge_rpc::accounts::{Accounts, AccountsApi};
 
 				let mut io = jsonrpc_core::IoHandler::<substrate_service::RpcMetadata>::default();
 				io.extend_with(
@@ -196,7 +196,7 @@ pub fn new_light<C: Send + Default + 'static>(config: Configuration<C, GenesisCo
 -> Result<impl AbstractService, ServiceError> {
 	let inherent_data_providers = InherentDataProviders::new();
 
-	ServiceBuilder::new_light::<Block, RuntimeApi, edgeware_executor::Executor>(config)?
+	ServiceBuilder::new_light::<Block, RuntimeApi, straightedge_executor::Executor>(config)?
 		.with_select_chain(|_config, client| {
 			#[allow(deprecated)]
 			Ok(LongestChain::new(client.backend().clone()))
@@ -235,7 +235,7 @@ pub fn new_light<C: Send + Default + 'static>(config: Configuration<C, GenesisCo
 			Ok(Arc::new(GrandpaFinalityProofProvider::new(client.clone(), client)) as _)
 		)?
 		.with_rpc_extensions(|client, pool| {
-			use edgeware_rpc::accounts::{Accounts, AccountsApi};
+			use straightedge_rpc::accounts::{Accounts, AccountsApi};
 
 			let mut io = jsonrpc_core::IoHandler::default();
 			io.extend_with(

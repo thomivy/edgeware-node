@@ -7,12 +7,12 @@ jobs:
           DEBUG_BUILD: true
           DEBIAN_FRONTEND: noninteractive
 
-    working_directory: ~/edgeware
+    working_directory: ~/straightedge
 
     steps:
       - checkout
       - run: apt-get update
-      - run: ~/edgeware/scripts/init.sh
+      - run: ~/straightedge/scripts/init.sh
 
       # module test cases
-      - run: source ~/.cargo/env && cd ~/edgeware && ./scripts/test.sh
+      - run: source ~/.cargo/env && cd ~/straightedge && ./scripts/test.sh
