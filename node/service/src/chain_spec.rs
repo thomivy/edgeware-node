@@ -55,7 +55,7 @@ pub fn straightedge_testnet_config_gensis() -> GenesisConfig {
 	let lockdrop_balances = allocation.0;
 	let lockdrop_vesting = allocation.1;
 	let lockdrop_validators = allocation.2;
-	let root_key = get_root_key();
+	// let root_key = get_root_key();
 	// Add controller accounts to endowed accounts
 	let endowed_accounts = get_more_endowed();
 	let identity_verifiers = get_identity_verifiers();
@@ -163,10 +163,8 @@ pub fn straightedge_testnet_config_gensis() -> GenesisConfig {
 /// Straightedge testnet generator
 pub fn straightedge_testnet_config() -> Result<ChainSpec, String> {
 	let boot_nodes = vec![
-		"/ip4/157.230.218.41/tcp/30333/p2p/QmNYiKrVuztYuL42gs5kHLTqvKsmEnE3GvJQ8ewcvwtSVF".to_string(),
-		"/ip4/18.223.143.102/tcp/30333/p2p/QmdHoon1jbjeJfTdifknGefGrJHUNYgDDpnJBLLW1Pdt13".to_string(),
-		"/ip4/206.189.33.216/tcp/30333/p2p/QmNc7rakvWY1QL6LL9ssTfKTWUhHUfzMvygYdyMLpLQCR7".to_string(),
-		"/ip4/157.230.125.18/tcp/30333/p2p/QmTqM3sPbeaE7R2WaveJNg1Ma86dSFPTBHXxYSNjwcii1x".to_string(),
+		"/ip4/159.65.223.215/tcp/30333/p2p/QmTVhTDnxBBjAGmgGXmha4zJ1E8CUPoeC4Rmi3LWyoLVVB".to_string(), // Sunny
+		"/ip4/134.209.244.243/tcp/30333/p2p/QmeHscJv15DU7UkSKoZuJUQoP8kZwkUrZVxq7hYjvvF753".to_string(), // Chris
 	];
 
 	Ok(ChainSpec::from_genesis(
