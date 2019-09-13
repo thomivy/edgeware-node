@@ -12,12 +12,12 @@ We are now pegged to: https://github.com/hicommonwealth/substrate.
 ## To get started
 
 - Download this entire repository to the file system that you are using to run the validator node.
-  - You can do this by going to [this page](https://github.com/hicommonwealth/edgeware-node) and selecting "Clone or download" followed by "Download ZIP".
-  - If you are installing via a command line interface (e.g. SSH into a remote server), you can dow-load by running `wget https://github.com/hicommonwealth/edgeware-node/archive/master.zip`
-  - Once you have downloaded the zip file, unzip the `edgeware-node-master` folder onto the file system. If you are using a command line interface, you can unzip by running `unzip master.zip`
+  - You can do this by going to [this page](https://github.com/heystraightedger/straightedge-node) and selecting "Clone or download" followed by "Download ZIP".
+  - If you are installing via a command line interface (e.g. SSH into a remote server), you can download by running `wget https://github.com/heystraightedge/straightedge-node/archive/master.zip` or `git clone github.com/heystraightedge/straightedge-node`
+  - Once you have downloaded the zip file, unzip the `straightedge-node-master` folder onto the file system. If you are using a command line interface, you can unzip by running `unzip master.zip`.  If you `git clone`d the repository, you can just cd into there.
   - **_All commands referenced in this document need to be run from within the `edgeware-node-master` folder._**
 
-- You will also need to install `rust` and `cargo` by installing `rustup` [here](https://rustup.rs/).
+- You will also need to install `rust` and `cargo` by installing `rustup` [here](https://rustup.rs/).  You can do it using the `setup.sh` bash script in the repo.  See the section Fresh Start.
   - **_Note_**: at the end of the install, you will need to log out and log in again, or run the suggested `source` command to configure the current shell.
 
 ## Fresh start
@@ -86,10 +86,10 @@ Ensure you have a fresh start if updating from another version:
 
 ### Edge
 
-* [Identity](https://github.com/hicommonwealth/edgeware-node/tree/master/modules/edge-identity)
-* [Voting](https://github.com/hicommonwealth/edgeware-node/tree/master/modules/edge-voting)
-* [Signaling](https://github.com/hicommonwealth/edgeware-node/tree/master/modules/edge-signaling)
-* [TreasuryReward](https://github.com/hicommonwealth/edgeware-node/tree/master/modules/edge-treasury-reward)
+* [Identity](https://github.com/heystraightedge/straightedge-node/tree/master/modules/edge-identity)
+* [Voting](https://github.com/heystraightedge/straightedge-node/tree/master/modules/edge-voting)
+* [Signaling](https://github.com/heystraightedge/straightedge-node/tree/master/modules/edge-signaling)
+* [TreasuryReward](https://github.com/heystraightedge/straightedge-node/tree/master/modules/edge-treasury-reward)
 
 ### SRML
 * [Aura](https://github.com/hicommonwealth/substrate/tree/master/srml/aura)
