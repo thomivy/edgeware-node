@@ -23,12 +23,10 @@ pub enum ChainSpec {
 	Development,
 	/// Whatever the current runtime is, with simple Alice/Bob auths.
 	LocalTestnet,
-	/// Edgeware testnet configuration (intermediate build process)
-	StraightedgeTestnetConfiguration,
-	/// Edgeware mainnet configuration (intermediate build process)
+	/// Straightedge mainnet configuration (intermediate build process)
 	StraightedgeMainnetConfiguration,
-	/// Edgeware Mainnet
-	EdgewareMainnet,
+	/// Straightedge Mainnet
+	StraightedgeMainnet,
 }
 
 impl Default for ChainSpec {
@@ -43,7 +41,6 @@ impl ChainSpec {
 		Ok(match self {
 			ChainSpec::StraightedgeMainnet => service::chain_spec::straightedge_mainnet(),
 			ChainSpec::StraightedgeMainnetConfiguration => service::chain_spec::straightedge_mainnet_config()?,
-			ChainSpec::StraightedgeTestnetConfiguration => service::chain_spec::straightedge_testnet_config()?,
 			ChainSpec::Development => service::chain_spec::development_config(),
 			ChainSpec::LocalTestnet => service::chain_spec::local_testnet_config(),
 		})
@@ -55,7 +52,6 @@ impl ChainSpec {
 			"local" => Some(ChainSpec::LocalTestnet),
 			"straightedge-mainnet-conf" => Some(ChainSpec::StraightedgeMainnetConfiguration),
 			"straightedge" => Some(ChainSpec::StraightedgeMainnet),
-			"straightedge-testnet-conf" => Some(ChainSpec::StraightedgeTestnetConfiguration),
 			"" => Some(ChainSpec::default()),
 			_ => None,
 		}

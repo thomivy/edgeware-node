@@ -1,11 +1,6 @@
 [package]
-<<<<<<< HEAD
 name = "straightedge-runtime"
-version = "0.8.0"
-=======
-name = "edgeware-runtime"
 version = "1.0.0"
->>>>>>> upstream/master
 authors = ["Commonwealth Labs <hello@commonwealth.im>"]
 edition = "2018"
 build = "build.rs"

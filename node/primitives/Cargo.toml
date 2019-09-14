@@ -1,11 +1,6 @@
 [package]
-<<<<<<< HEAD
 name = "straightedge-primitives"
-version = "0.1.0"
-=======
-name = "edgeware-primitives"
 version = "1.0.0"
->>>>>>> upstream/master
 authors = ["Commonwealth Labs <hello@commonwealth.im>"]
 edition = "2018"
 
