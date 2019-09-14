@@ -165,7 +165,7 @@ pub fn straightedge_mainnet_config_gensis() -> GenesisConfig {
 pub fn straightedge_mainnet_config() -> Result<ChainSpec, String> {
 	let boot_nodes = vec![
 		"/ip4/159.65.223.215/tcp/30333/p2p/QmTVhTDnxBBjAGmgGXmha4zJ1E8CUPoeC4Rmi3LWyoLVVB".to_string(), // Sunny
-		"/ip4/134.209.244.243/tcp/30333/p2p/QmeHscJv15DU7UkSKoZuJUQoP8kZwkUrZVxq7hYjvvF753".to_string(), // Chris
+		"/ip4/134.209.244.243/tcp/30333/p2p/QmVs8tjmd6ShJjcgQ2QoMfCMJc8mKqr5oe2rLWPnNqSxtF".to_string(), // Chris
 		"/ip4/35.157.118.166/tcp/30333/p2p/QmdfPKgYx61H2X6xGiwfdMCswekxxoYB4E9askgfLegVK5".to_string(), // Julien
 	];
 
@@ -179,7 +179,7 @@ pub fn straightedge_mainnet_config() -> Result<ChainSpec, String> {
 	Ok(ChainSpec::from_genesis(
 		"Straightedge",
 		"straightedge",
-		straightedge_mainnet_config_gensis,
+		straightedge_mainnet_config_gensis
 		boot_nodes,
 		Some(TelemetryEndpoints::new(vec![(STAGING_TELEMETRY_URL.to_string(), 0)])),
 		Some(DEFAULT_PROTOCOL_ID),
