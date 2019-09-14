@@ -1,11 +1,6 @@
 [package]
-<<<<<<< HEAD
 name = "straightedge-rpc"
-version = "0.1.0"
-=======
-name = "edgeware-rpc"
 version = "1.0.0"
->>>>>>> upstream/master
 authors = ["drewstone <drewstone329@gmail.com>"]
 edition = "2018"
 
