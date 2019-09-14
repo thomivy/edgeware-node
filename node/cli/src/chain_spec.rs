@@ -23,10 +23,12 @@ pub enum ChainSpec {
 	Development,
 	/// Whatever the current runtime is, with simple Alice/Bob auths.
 	LocalTestnet,
-	/// Straightedge testnet V8.
-	StraightedgeTestnetV8,
-	/// Straightedge testnet configuration (intermediate build process)
+	/// Edgeware testnet configuration (intermediate build process)
 	StraightedgeTestnetConfiguration,
+	/// Edgeware mainnet configuration (intermediate build process)
+	StraightedgeMainnetConfiguration,
+	/// Edgeware Mainnet
+	EdgewareMainnet,
 }
 
 impl Default for ChainSpec {
@@ -39,8 +41,9 @@ impl Default for ChainSpec {
 impl ChainSpec {
 	pub(crate) fn load(self) -> Result<service::chain_spec::ChainSpec, String> {
 		Ok(match self {
+			ChainSpec::StraightedgeMainnet => service::chain_spec::straightedge_mainnet(),
+			ChainSpec::StraightedgeMainnetConfiguration => service::chain_spec::straightedge_mainnet_config()?,
 			ChainSpec::StraightedgeTestnetConfiguration => service::chain_spec::straightedge_testnet_config()?,
-			ChainSpec::StraightedgeTestnetV8 => service::chain_spec::straightedge_testnet_v8_config(),
 			ChainSpec::Development => service::chain_spec::development_config(),
 			ChainSpec::LocalTestnet => service::chain_spec::local_testnet_config(),
 		})
@@ -50,8 +53,9 @@ impl ChainSpec {
 		match s {
 			"dev" => Some(ChainSpec::Development),
 			"local" => Some(ChainSpec::LocalTestnet),
-			"edge" => Some(ChainSpec::StraightedgeTestnetConfiguration),
-			"straightedge-testnet-v8" => Some(ChainSpec::StraightedgeTestnetV8),
+			"straightedge-mainnet-conf" => Some(ChainSpec::StraightedgeMainnetConfiguration),
+			"straightedge" => Some(ChainSpec::StraightedgeMainnet),
+			"straightedge-testnet-conf" => Some(ChainSpec::StraightedgeTestnetConfiguration),
 			"" => Some(ChainSpec::default()),
 			_ => None,
 		}
