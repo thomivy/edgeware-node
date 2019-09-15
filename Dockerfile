@@ -15,6 +15,7 @@ LABEL maintainer="hello@commonwealth.im"
 LABEL description="This is the 2nd stage: a very small image where we copy the Straightedge binary."
 ARG PROFILE=release
 COPY --from=builder /straightedge/target/$PROFILE/straightedge /usr/local/bin
+COPY --from=builder /straightedge/mainnet /usr/local/bin/mainnet
 COPY --from=builder /straightedge/testnets /usr/local/bin/testnets
 
 RUN rm -rf /usr/lib/python* && \
