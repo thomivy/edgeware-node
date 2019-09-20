@@ -174,7 +174,7 @@ edgeware --base-path "/root/edgeware" \
 
 ### Validator Setup
 
-Luke's notes when following the Validating on Edgeware v0.8.0 Guide https://github.com/hicommonwealth/edgeware-node/wiki/Validating-on-Edgeware-v0.8.0
+Luke's notes when following the Validating on Edgeware v0.8.0 Guide https://github.com/hicommonwealth/edgeware-node/wiki/Validating-on-Edgeware
 
 Note: The stash of validators from the lockdrop should already be bonded in https://github.com/hicommonwealth/edgeware-node/blob/master/node/service/src/genesis.json
 
